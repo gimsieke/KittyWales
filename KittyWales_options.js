@@ -13,7 +13,9 @@ var patch_option_html = function(doc, settings) {
   doc.getElementById('tags').value = settings.searchterms;
   var logic_op = settings.logic_op || 'all';
   doc.getElementById(logic_op).checked = true;
-  doc.getElementById('icon').src = settings.previewUrl;
+  if (settings.previewUrl !== undefined && settings.previewUrl !== '') {
+    doc.getElementById('icon').src = settings.previewUrl;
+  }
   doc.getElementById('count').innerHTML = settings.count;
 };
 

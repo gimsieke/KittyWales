@@ -41,11 +41,12 @@ chrome.extension.onRequest.addListener(
     if (request.action == "getopt" || request.action == "reset") {
       updateCounts(function(flickrResponse) { 
         var photo = flickrResponse.photos.photo[0];
+        var preview = photo !== undefined ? 'http://farm' + photo.farm + '.static.flickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_m.jpg' : '';
         sendResponse({ searchterms: localStorage['opt_searchterms'],
                        logic_op: localStorage['opt_logic_op'],
                        url: flickrUrl(),
                        count: flickrResponse.photos.total,
-                       previewUrl: 'http://farm' + photo.farm + '.static.flickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_m.jpg'
+                       previewUrl: preview
                      });
       });
     } 
