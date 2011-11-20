@@ -1,0 +1,24 @@
+{
+   "name": "KittyWales",
+   "content_scripts": [ {
+      "js": [ "KittyWales_patch_wikipedia.js" ],
+      "matches": [ "*://*.wikipedia.org/*" ],
+      "run_at": "document_idle"
+   } ],
+   "page_action": {
+      "default_icon": "icons/KittyWales_16.png",
+      "default_title": "KittyWales options",
+	    "default_popup": "KittyWales_options.html"
+   },
+   "background_page": "KittyWales_background.html",
+   "description": "Replaces Jimbo Wales with a random #lolcat image from Flickr",
+   "permissions": [ "tabs" ],
+   "icons": {
+      "128": "icons/KittyWales_128.png",
+      "48": "icons/KittyWales_48.png",
+      "16": "icons/KittyWales_16.png"
+   },
+   "options_page": "KittyWales_options.html",
+   "homepage_url": "https://github.com/gimsieke/KittyWales",
+   "version": "1.0"
+}
