@@ -36,7 +36,7 @@ var updateCounts = function(fn) {
 chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse) {
     if (request.action == "reset") {
-      init();
+      init(true);
     }
     if (request.action == "getopt" || request.action == "reset") {
       updateCounts(function(flickrResponse) { 
