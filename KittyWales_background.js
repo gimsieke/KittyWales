@@ -1,6 +1,4 @@
 
-var photoCount = 0;
-
 var init = function(unconditional) {
   if (localStorage['opt_searchterms'] == undefined || (unconditional !== undefined && unconditional)) {
     localStorage['opt_searchterms'] = 'lolcat';
@@ -28,7 +26,6 @@ var updateCounts = function(fn) {
     if (req.readyState === 4 && req.status === 200) {
       var res = JSON.parse(req.responseText);
       if (res.photos.photo !== undefined) {
-				photoCount = Number(res.photos.total);
         return fn(res);
       }
     }
@@ -38,19 +35,19 @@ var updateCounts = function(fn) {
   
 chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse) {
-		if (request.action == "reset") {
-			init();
+    if (request.action == "reset") {
+      init();
     }
     if (request.action == "getopt" || request.action == "reset") {
       updateCounts(function(flickrResponse) { 
         var photo = flickrResponse.photos.photo[0];
         sendResponse({ searchterms: localStorage['opt_searchterms'],
                        logic_op: localStorage['opt_logic_op'],
-  										 url: flickrUrl(),
-											 count: flickrResponse.photos.total,
-  										 previewUrl: 'http://farm' + photo.farm + '.static.flickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_m.jpg'
+                       url: flickrUrl(),
+                       count: flickrResponse.photos.total,
+                       previewUrl: 'http://farm' + photo.farm + '.static.flickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_m.jpg'
                      });
-			});
+      });
     } 
   }
 );                                    
