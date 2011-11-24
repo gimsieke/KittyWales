@@ -7,7 +7,7 @@ var init = function(action) {
   var unconditional;
   if (action == undefined) {
     action = function(result) {
-			bg.previousFlickrResult = result;
+      bg.previousFlickrResult = result;
       // Passing this to withFlickrResult below will ensure randomness of the first image.
       // 1st invocation: get number of photos, 2nd invocation: get random photo
       withFlickrResult(update);
@@ -56,7 +56,7 @@ var withFlickrResult = function(callback) {
     };
     req.send();
   }
-		
+    
 };
 
 var flickrUrl = function() {
@@ -71,7 +71,7 @@ var flickrUrl = function() {
 };
 
 var flickrToRenderable = function(flickrResult, callback) {
-	if (flickrResult.photos !== undefined) {
+  if (flickrResult.photos !== undefined) {
     var photo = flickrResult.photos.photo[0];
     if (photo !== undefined) {
       var imgUrl = 'http://farm' + photo.farm + '.static.flickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_m.jpg';
@@ -87,14 +87,14 @@ var flickrToRenderable = function(flickrResult, callback) {
       }
       image.src = imgUrl;
     }
-	} else {
-		callback( { count: 0,
+  } else {
+    callback( { count: 0,
                 imgUrl: 'http://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Wikipedia-lolcat.jpg/220px-Wikipedia-lolcat.jpg',
                 height: 176,
                 searchterms: localStorage['opt_searchterms'],
                 searchmode: localStorage['opt_logic_op']
-							})
-	}
+              })
+  }
 }
 
 chrome.extension.onRequest.addListener(
@@ -102,21 +102,21 @@ chrome.extension.onRequest.addListener(
     if (request.action == "reset") {
       reset_opts(true);
       init(function(result) {
-						 bg.previousFlickrResult = result;
-						 withFlickrResult(function(result2) {
-																update(result2);
-																flickrToRenderable(result2, sendResponse);
-															});
-					 });
+             bg.previousFlickrResult = result;
+             withFlickrResult(function(result2) {
+                                update(result2);
+                                flickrToRenderable(result2, sendResponse);
+                              });
+           });
     } else if (request.action == "getopt") {
       var savedData = bg.prefetchedRenderData;
       withFlickrResult(update);
       sendResponse(savedData);
     } else if (request.action == "setopt") {
       withFlickrResult(function(result) {
-												 update(result);
-												 flickrToRenderable(result, sendResponse);
-											 });
+                         update(result);
+                         flickrToRenderable(result, sendResponse);
+                       });
     }
   }
 );                                    

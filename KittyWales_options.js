@@ -21,8 +21,8 @@ var patch_option_html = function(doc, settings) {
 
 var render_settings = function(action) {
   if (action == undefined) {
-		action = 'getopt';
-	}
+    action = 'getopt';
+  }
   chrome.extension.sendRequest(
     {"action": action},
     function(response) {
