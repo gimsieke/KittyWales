@@ -6,16 +6,6 @@ The extension can be installed from this location:
 https://chrome.google.com/webstore/detail/ohahdlgbnlahpmnoiebchppfoiloccpk
 
 
-Useful but missing features (wish list):
-1. Prefetch the random image so that it displays quicker
-2. Establish a listener for when the div/image that is injected by 
-   Wikipedia's JS is there, so that the replacement will show quicker.
-However, one could consider the delayed display of the replacement
-image as a feature.
-3. Pick a random image (instead of the first in that category) for
-   preview on the options page.
-
-
 Author: 
 Gerrit Imsieke, Leipzig, Germany
 gerrit.imsieke@gmail.com

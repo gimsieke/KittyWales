@@ -7,17 +7,21 @@
     <style>
 @media screen and (min-device-width: 640px) {
   body {
-    min-width: 500px;
+    width: 500px;
   }
   .float {
     float: right;
     margin: 0.2em 0 1em 1em;
-    padding: 0;
   }
 }
 
 body {
   font-family: sans-serif;
+}
+
+.float {
+  width: 240px;
+	padding: 0;
 }
 
 h2 {
@@ -32,7 +36,7 @@ h2 {
 
     <p>There are <span id="count">0</span> photos for the tag(s) '<span id="tags2">?</span>'.</p>
 
-    <p>Cute tawny owls are the new kittehz? Try something like 'tawny,owl' below. Or try 'puppy,dog'. 
+    <p>Cute tawny owls are the new kittehz? Try something like 'tawny,owls' or 'little,owl' below. Or try 'puppy,dog'. 
 			Of course you may also try 'boobs' or 'babes' etc. (think of a synonym for kitteh), but let me tell you: as per their
 			<a href="http://www.flickr.com/services/api/flickr.photos.search.html" target="_blank">API docs</a>,
 			Flickr will only serve “safe” photos.</p> 
@@ -41,7 +45,7 @@ h2 {
 
     <p><label for="tags">Flickr tags (comma or space separated)</label> <input name="tags" id="tags" type="text"></input></p>
     <p><label>Match <input name="logic_op" type="radio" value="all" id="all"></input> all</label> of these tags or <br/>match <label><input name="logic_op" type="radio" value="any" id="any"></input> any</label> of these tags?</p>
-    <p><button id="save" onclick="save_options()">Save</button> <button onclick="render_settings(true)">Defaults</button></p>
+    <p><button id="save" onclick="save_options()">Save</button> <button onclick="render_settings('reset')">Defaults</button></p>
 
     <hr/>
 

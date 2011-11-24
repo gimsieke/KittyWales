@@ -11,16 +11,18 @@ document.addEventListener(
 var patch_option_html = function(doc, settings) {
   doc.getElementById('tags2').innerHTML = settings.searchterms;
   doc.getElementById('tags').value = settings.searchterms;
-  var logic_op = settings.logic_op || 'all';
-  doc.getElementById(logic_op).checked = true;
-  if (settings.previewUrl !== undefined && settings.previewUrl !== '') {
-    doc.getElementById('icon').src = settings.previewUrl;
+  var searchmode = settings.searchmode || 'all';
+  doc.getElementById(searchmode).checked = true;
+  if (settings.imgUrl !== undefined && settings.imgUrl !== '') {
+    doc.getElementById('icon').src = settings.imgUrl;
   }
   doc.getElementById('count').innerHTML = settings.count;
 };
 
-var render_settings = function(reset) {
-  action = (reset !== undefined && reset) ? 'reset' : 'getopt';
+var render_settings = function(action) {
+  if (action == undefined) {
+		action = 'getopt';
+	}
   chrome.extension.sendRequest(
     {"action": action},
     function(response) {
@@ -31,9 +33,6 @@ var render_settings = function(reset) {
 
 var save_options = function() {
   localStorage['opt_searchterms'] = normalize_searchterms(document.getElementById('tags').value);
-  // No wonder the web people don't like XPath if its implementation isn't able to select something 
-  // depending on its @checked attribute. The following doesn't seem to work:
-  //  localStorage['opt_logic_op'] = document.evaluate("//input[@type = 'radio'][@name = 'logic_op'][@checked]/@id", document, null, XPathResult.STRING_TYPE, null).stringValue;
   localStorage['opt_logic_op'] = document.getElementById('any').checked ? 'any' : 'all';
   document.getElementById('save').innerHTML = 'Saving\u2026';
   var timer = setTimeout (
@@ -42,7 +41,7 @@ var save_options = function() {
     },
     700
   );
-  render_settings();
+  render_settings('setopt');
 }
 
 var normalize_searchterms = function(string) {
